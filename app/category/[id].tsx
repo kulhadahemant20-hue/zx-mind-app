@@ -23,6 +23,36 @@ export default function CategoryScreen() {
     router.push('/player');
   }
 
+  if (category?.comingSoon) {
+    return (
+      <View style={styles.root}>
+        <View style={[styles.header, { paddingTop: insets.top + 16, borderBottomColor: category?.color ?? '#1DB954' }]}>
+          <Pressable onPress={() => router.back()} style={styles.backBtn}>
+            <Feather name="arrow-left" size={24} color="#FFF" />
+          </Pressable>
+          <View style={styles.headerText}>
+            <Text style={styles.title} numberOfLines={2}>{category?.name ?? 'Category'}</Text>
+          </View>
+          <View style={[styles.iconWrap, { backgroundColor: (category?.color ?? '#1DB954') + '22' }]}>
+            <Feather name={(category?.icon ?? 'star') as any} size={22} color={category?.color ?? '#1DB954'} />
+          </View>
+        </View>
+        <View style={styles.comingSoonContainer}>
+          <View style={[styles.comingSoonIcon, { backgroundColor: (category?.color ?? '#1DB954') + '22' }]}>
+            <Feather name="clock" size={48} color={category?.color ?? '#1DB954'} />
+          </View>
+          <Text style={styles.comingSoonTitle}>Coming Soon</Text>
+          <Text style={styles.comingSoonSub}>
+            Is category ke episodes bahut jald aane wale hain.{'\n'}Hame follow karo aur notified raho!
+          </Text>
+          <Pressable style={[styles.notifyBtn, { backgroundColor: category?.color ?? '#1DB954' }]} onPress={() => router.back()}>
+            <Text style={styles.notifyBtnText}>Wapas Jao</Text>
+          </Pressable>
+        </View>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.root}>
       <View style={[styles.header, { paddingTop: insets.top + 16, borderBottomColor: category?.color ?? '#1DB954' }]}>
@@ -115,4 +145,10 @@ const styles = StyleSheet.create({
   newBadgeText: { color: '#45B7D1', fontSize: 10, fontWeight: '700' as const },
   playBtn: { width: 38, height: 38, borderRadius: 19, backgroundColor: '#1DB954', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 4 },
   separator: { height: 1, backgroundColor: '#1A1A1A', marginHorizontal: 20 },
+  comingSoonContainer: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 40 },
+  comingSoonIcon: { width: 100, height: 100, borderRadius: 50, alignItems: 'center', justifyContent: 'center', marginBottom: 24 },
+  comingSoonTitle: { color: '#FFF', fontSize: 28, fontWeight: '800' as const, marginBottom: 12, textAlign: 'center' },
+  comingSoonSub: { color: '#B3B3B3', fontSize: 15, textAlign: 'center', lineHeight: 22, marginBottom: 32 },
+  notifyBtn: { paddingHorizontal: 32, paddingVertical: 14, borderRadius: 30 },
+  notifyBtnText: { color: '#000', fontSize: 15, fontWeight: '700' as const },
 });
