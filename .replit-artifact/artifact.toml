@@ -1,0 +1,27 @@
+kind = "mobile"
+previewPath = "/"
+title = "ZX Mind"
+version = "1.0.0"
+id = "artifacts/zx-mind"
+router = "expo-domain"
+
+[[integratedSkills]]
+name = "expo"
+version = "1.0.0"
+
+[[services]]
+ensurePreviewReachable = "/status"
+name = "expo"
+paths = [ "/" ]
+localPort = 25436
+
+[services.development]
+run = "pnpm --filter @workspace/zx-mind run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/zx-mind", "run", "build" ]
+run = [ "pnpm", "--filter", "@workspace/zx-mind", "run", "serve" ]
+
+[services.env]
+PORT = "25436"
+BASE_PATH = "/"
