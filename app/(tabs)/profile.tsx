@@ -80,6 +80,12 @@ export default function ProfileScreen() {
       </View>
 
       <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Rewards & Preferences</Text>
+        <MenuItem icon="gift" label="ZX Mind Rewards 🎁" onPress={() => router.push('/rewards' as any)} value="Earn gifts!" color="#FFE66D" />
+        <MenuItem icon="heart" label="Meri Pasand" onPress={() => router.push('/preferences' as any)} value="Customize" />
+      </View>
+
+      <View style={styles.section}>
         <Text style={styles.sectionTitle}>Account</Text>
         <MenuItem icon="bell" label="Notifications" onPress={() => router.push('/settings/notifications' as any)} />
         <MenuItem icon="shield" label="Privacy & Security" onPress={() => router.push('/settings/privacy' as any)} />

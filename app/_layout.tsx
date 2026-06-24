@@ -9,13 +9,14 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Stack, useRouter, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useEffect } from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { AppState, AppStateStatus, Platform, StyleSheet, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { AuthProvider, useAuth } from '@/context/AuthContext';
 import { PlayerProvider } from '@/context/PlayerContext';
+import { startSession, endSession } from '@/services/streak';
 
 SplashScreen.preventAutoHideAsync();
 const queryClient = new QueryClient();
@@ -50,6 +51,15 @@ function RootLayoutNav() {
     if (fontsLoaded) SplashScreen.hideAsync();
   }, [fontsLoaded]);
 
+  useEffect(() => {
+    startSession();
+    const sub = AppState.addEventListener('change', (state: AppStateStatus) => {
+      if (state === 'background' || state === 'inactive') endSession();
+      if (state === 'active') startSession();
+    });
+    return () => { endSession(); sub.remove(); };
+  }, []);
+
   if (!fontsLoaded) return null;
 
   return (
@@ -65,6 +75,8 @@ function RootLayoutNav() {
         <Stack.Screen name="category/[id]" />
         <Stack.Screen name="subscription" />
         <Stack.Screen name="settings" />
+        <Stack.Screen name="preferences" />
+        <Stack.Screen name="rewards" />
       </Stack>
     </>
   );
