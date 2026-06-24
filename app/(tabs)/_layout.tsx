@@ -26,6 +26,10 @@ function NativeTabLayout() {
           <Icon sf={{ default: 'bookmark', selected: 'bookmark.fill' }} />
           <Label>Library</Label>
         </NativeTabs.Trigger>
+        <NativeTabs.Trigger name="chat">
+          <Icon sf={{ default: 'bubble.left.and.bubble.right', selected: 'bubble.left.and.bubble.right.fill' }} />
+          <Label>ZX Chat</Label>
+        </NativeTabs.Trigger>
         <NativeTabs.Trigger name="profile">
           <Icon sf={{ default: 'person', selected: 'person.fill' }} />
           <Label>Profile</Label>
@@ -100,6 +104,18 @@ function ClassicTabLayout() {
                 <SymbolView name="bookmark" tintColor={color} size={22} />
               ) : (
                 <Feather name="bookmark" size={22} color={color} />
+              ),
+          }}
+        />
+        <Tabs.Screen
+          name="chat"
+          options={{
+            title: 'ZX Chat',
+            tabBarIcon: ({ color }) =>
+              isIOS ? (
+                <SymbolView name="bubble.left.and.bubble.right" tintColor={color} size={22} />
+              ) : (
+                <Feather name="message-circle" size={22} color={color} />
               ),
           }}
         />

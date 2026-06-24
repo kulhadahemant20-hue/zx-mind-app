@@ -77,6 +77,7 @@ function RootLayoutNav() {
         <Stack.Screen name="settings" />
         <Stack.Screen name="preferences" />
         <Stack.Screen name="rewards" />
+        <Stack.Screen name="chat-room/[id]" />
       </Stack>
     </>
   );

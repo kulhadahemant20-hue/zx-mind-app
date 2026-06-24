@@ -11,6 +11,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { usePlayer } from '@/context/PlayerContext';
 import { getCoverImage, formatDuration } from '@/constants/mockData';
 import { isFavorite, toggleFavorite, addToHistory } from '@/services/storage';
+import { CommentSection } from '@/components/CommentSection';
 
 const { width } = Dimensions.get('window');
 const SPEEDS = [1, 1.25, 1.5, 2];
@@ -75,7 +76,7 @@ export default function PlayerScreen() {
       <Image source={getCoverImage(currentEpisode.coverKey)} style={StyleSheet.absoluteFill} blurRadius={40} />
       <LinearGradient colors={['rgba(0,0,0,0.3)', '#000000', '#000000']} locations={[0, 0.4, 1]} style={StyleSheet.absoluteFill} />
 
-      <ScrollView contentContainerStyle={[styles.scroll, { paddingTop: insets.top + 20, paddingBottom: insets.bottom + 20 }]} scrollEnabled={false}>
+      <ScrollView contentContainerStyle={[styles.scroll, { paddingTop: insets.top + 20, paddingBottom: insets.bottom + 20 }]} scrollEnabled={true} showsVerticalScrollIndicator={false}>
         <View style={styles.topRow}>
           <Pressable onPress={() => router.back()} style={styles.downBtn}>
             <Feather name="chevron-down" size={28} color="#FFF" />
@@ -163,7 +164,9 @@ export default function PlayerScreen() {
           )}
         </View>
 
-        <Text style={styles.description} numberOfLines={3}>{currentEpisode.description}</Text>
+        <Text style={styles.description}>{currentEpisode.description}</Text>
+
+        <CommentSection episodeId={currentEpisode.id} />
       </ScrollView>
     </View>
   );
